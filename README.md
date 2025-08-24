@@ -28,9 +28,9 @@ It models a simplified cooling system where a **cooling unit** adjusts its power
 
 ## 📂 Project Structure
 
-├── `main.c` Core simulation (PID logic + FreeRTOS tasks/timers)  
-├── `FreeRTOSConfig.h` FreeRTOS configuration  
-├── README.md **Project documentation**  
+├── `main.c` - Core simulation (PID logic + FreeRTOS tasks/timers)  
+├── `FreeRTOSConfig.h` - FreeRTOS configuration  
+├── `README.md` - Project documentation  
 └── (other FreeRTOS source files as needed)
 
 ---
@@ -44,7 +44,7 @@ It models a simplified cooling system where a **cooling unit** adjusts its power
    ```
 2. Open the project in Visual Studio (or any C IDE supporting FreeRTOS).
 
-3. Build and run. The console will show simulated temperature readings and PID-controlled cooling power values every second.
+3. Build and run [Debug & x86]. The console will show simulated temperature readings and PID-controlled cooling power values every second.
 
 ## 📊 Example Output
 
@@ -69,38 +69,7 @@ Temperature received: 28 C - Cooling Power: 15.9%
 
 - Sensor Noise: ±0.5 °C simulated disturbance
 
-## 🔹 PID Controller Equations
-
-u(t) = K_p \cdot e(t) + K_i \cdot \int e(t)\,dt + K_d \cdot \frac{de(t)}{dt}
-(renders fine on GitHub):
-u(t) = K_p \cdot e(t) + K_i \cdot \int e(t)\,dt + K_d \cdot \frac{de(t)}{dt}
-
-## 🧮 PID Controller Math
-
-The control signal is calculated as:
-
-u(t) = Kp _ e(t) + Ki _ ∑ e(t) + Kd \* (e(t) - e(t-1))
-
-Where:
-
-e(t) = measuredTemp - setpoint (temperature error)
-
-Kp = 3.0 (Proportional gain)
-
-Ki = 0.1 (Integral gain)
-
-Kd = 1.5 (Derivative gain)
-
-Output u(t) is clamped between 0–100% (cooling power);
-
-## 📘 Learning Takeaways
-
-- Real-time systems: using FreeRTOS tasks and queues for periodic control.
-- PID control theory applied to embedded systems.
-- Handling sensor noise and environmental disturbances in simulations.
-- Anti-windup strategies for integral stability.
-
-## ASCII Fallback (for plain text)
+## ASCII Fallback diagram
 
 ```
    +-----------+       +-------------+       +----------------+       +------------------+
@@ -118,7 +87,7 @@ Output u(t) is clamped between 0–100% (cooling power);
                                                                            (Feedback loop)
 ```                                                                           
 
-## 🧩 System Flow (FreeRTOS)
+## System Flow (FreeRTOS)
 
         +------------------+
         |   Temp Timer     |
@@ -234,6 +203,13 @@ The PID controller adjusts cooling power to keep the temperature close to the se
 - With **anti-windup**, the integral **pauses** whenever output is clamped at 0% or 100%, keeping the system stable and avoiding wild swings.
 
 ---
+
+## 📘 Learning Takeaways
+
+- Real-time systems: using FreeRTOS tasks and queues for periodic control.
+- PID control theory applied to embedded systems.
+- Handling sensor noise and environmental disturbances in simulations.
+- Anti-windup strategies for integral stability.
 
 👉 In short:
 
